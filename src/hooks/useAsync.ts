@@ -39,7 +39,8 @@ const reducer = <Data>(state: AsyncState<Data>, action: AsyncAction<Data>): Asyn
 
 const useAsync = <Data>(
     callback: () => Promise<Data>,
-    deps: React.DependencyList = []
+    deps: React.DependencyList = [],
+    skip = false
 ): [AsyncState<Data>, () => Promise<void>] => {
     const [state, dispatch] = useReducer<Reducer<AsyncState<Data>, AsyncAction<Data>>>(reducer, {
         loading: false,
@@ -61,6 +62,7 @@ const useAsync = <Data>(
     };
 
     useEffect(() => {
+        if (skip) return;
         fetchData();
         // eslint 설정을 다음 줄에서만 비활성화
         // eslint-disable-next-line
