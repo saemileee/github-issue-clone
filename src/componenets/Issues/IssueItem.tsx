@@ -1,7 +1,7 @@
 import * as Type from '../../types/issues';
 
 interface IssueItemProps {
-    issue: Type.issue;
+    issue: Type.issueItem;
 }
 
 const IssueItem = ({issue}: IssueItemProps) => {

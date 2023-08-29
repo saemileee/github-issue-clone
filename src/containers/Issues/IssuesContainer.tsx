@@ -1,22 +1,28 @@
-import {useEffect, useState} from 'react';
+import {RefObject, useEffect, useState} from 'react';
 import IssueItem from '../../componenets/Issues/IssueItem';
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
 import AdBanner from '../../componenets/Issues/AdBanner';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import LoadingItem from '../../componenets/Issues/LoadingItem';
 
 const IDX_OF_AD_BANNER = 5;
 
 const IssuesContainer = () => {
     const [pageCount, setPageCount] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
-    const [issues, setIssues] = useState<Type.issue[] | []>([]);
+    const [issues, setIssues] = useState<Type.issueItem[] | []>([]);
+    const [moreData, setMoreData] = useState(true);
 
     const getIssues = async (page: number) => {
         try {
+            setMoreData(false);
             const res = await Fetcher.getIssues(page);
-            setIssues((prev: Type.issue[]) => [...prev, ...res.data]);
+            setIssues(prev => [...prev, ...res.data]);
+            setMoreData(true);
         } catch (e) {
             console.error(e);
+            setMoreData(false);
         } finally {
             setIsLoading(false);
         }
@@ -32,13 +38,17 @@ const IssuesContainer = () => {
         getIssues(newPageCount);
     };
 
+    const getNextPageRef: RefObject<HTMLElement | HTMLLIElement> = useInfiniteScroll(() => {
+        getNextPage();
+    });
+
     if (isLoading) return <div>로딩 중</div>;
 
     return (
         <>
             <h1>IssuesContainer</h1>
             <ul>
-                {issues.map((issue: Type.issue, idx: number) =>
+                {issues.map((issue: Type.issueItem, idx: number) =>
                     (idx + 1) % IDX_OF_AD_BANNER ? (
                         <IssueItem key={`issue-${issue.id}`} issue={issue} />
                     ) : (
@@ -46,7 +56,7 @@ const IssuesContainer = () => {
                     )
                 )}
             </ul>
-            <button onClick={getNextPage}>next page</button>
+            {moreData && <LoadingItem innerRef={getNextPageRef} />}
         </>
     );
 };

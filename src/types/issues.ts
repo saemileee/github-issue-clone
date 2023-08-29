@@ -84,3 +84,14 @@ export interface issue {
     author_association: string;
     state_reason: string;
 }
+
+export interface issueItem {
+    id: number;
+    number: number;
+    title: string;
+    user: {
+        login: string;
+    };
+    created_at: string;
+    comments: number;
+}
