@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const OWNER = 'facebook';
-const REPO = 'react';
+import {OWNER, REPO} from '../constants/repoInfo';
 
 export const axiosIssuesInstance = axios.create({
     baseURL: `https://api.github.com/repos/${OWNER}/${REPO}`,

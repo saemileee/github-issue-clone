@@ -1,7 +1,9 @@
+import {OWNER, REPO} from '../constants/repoInfo';
+
 const Header = () => {
     return (
         <header>
-            <span>OrgName</span>/<span>RepoName</span>
+            <span>{OWNER}</span>/<span>{REPO}</span>
         </header>
     );
 };
