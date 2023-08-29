@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import IssueItem from '../../componenets/Issues/IssueItem';
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
+import AdBanner from '../../componenets/Issues/AdBanner';
 
 const IssuesContainer = () => {
     const [pageCount, setPageCount] = useState(1);
@@ -34,28 +35,9 @@ const IssuesContainer = () => {
     return (
         <>
             <h1>IssuesContainer</h1>
-            {issues.map((issue: Type.issue) => {
-                const {id, number, title, user, created_at, comments} = issue;
-                return (
-                    <li key={`issue-${id}`}>
-                        <div>
-                            <span>{number}</span>
-                            <span>{title}</span>
-                        </div>
-                        <div>
-                            <span>작성자</span>
-                            <span>{user.login}</span>
-                            <span>작성일</span>
-                            <span>{created_at}</span>
-                        </div>
-                        <div>
-                            <span>코멘트</span>
-                            <span>{comments}</span>
-                        </div>
-                    </li>
-                );
-            })}
-            <IssueItem />
+            {issues.map((issue: Type.issue, idx: number) =>
+                (idx + 1) % 5 ? <IssueItem issue={issue} /> : <AdBanner />
+            )}
             <button onClick={getNextPage}>next page</button>
         </>
     );

@@ -1,8 +1,28 @@
-const IssueItem = () => {
+import * as Type from '../../types/issues';
+
+interface IssueItemProps {
+    issue: Type.issue;
+}
+
+const IssueItem = ({issue}: IssueItemProps) => {
+    const {id, number, title, user, created_at, comments} = issue;
     return (
-        <>
-            <h1>Issues Component</h1>
-        </>
+        <li key={`issue-${id}`}>
+            <div>
+                <span>{number}</span>
+                <span>{title}</span>
+            </div>
+            <div>
+                <span>작성자</span>
+                <span>{user.login}</span>
+                <span>작성일</span>
+                <span>{created_at}</span>
+            </div>
+            <div>
+                <span>코멘트</span>
+                <span>{comments}</span>
+            </div>
+        </li>
     );
 };
 
