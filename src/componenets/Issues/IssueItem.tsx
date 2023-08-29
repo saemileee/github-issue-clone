@@ -1,13 +1,20 @@
+import {useNavigate} from 'react-router-dom';
 import * as Type from '../../types/issues';
+import ROUTES from '../../constants/routes';
 
 interface IssueItemProps {
     issue: Type.issueItem;
 }
 
 const IssueItem = ({issue}: IssueItemProps) => {
+    const navigate = useNavigate();
     const {number, title, user, created_at, comments} = issue;
+
+    const navigateToPostPage = () => {
+        navigate(`${ROUTES.ISSUES}/${number}`);
+    };
     return (
-        <li>
+        <li onClick={navigateToPostPage}>
             <div>
                 <span>{number}</span>
                 <span>{title}</span>
