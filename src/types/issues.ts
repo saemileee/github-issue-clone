@@ -55,7 +55,7 @@ interface pullRequest {
     patch_url: string;
 }
 
-export interface issues {
+export interface issue {
     id: number;
     node_id: string;
     url: string;
