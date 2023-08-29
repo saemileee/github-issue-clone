@@ -3,6 +3,7 @@ import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
 import IssuePost from '../../componenets/Issues/IssuePost';
 import {useParams} from 'react-router-dom';
+import Error from '../../componenets/Error';
 
 const IssuePostContainer = () => {
     const params = useParams();
@@ -25,7 +26,7 @@ const IssuePostContainer = () => {
             const res = await Fetcher.getIssue(postId);
             setIssueInfo(res.data);
         } catch (e) {
-            console.error(e);
+            return <Error />;
         }
     };
 

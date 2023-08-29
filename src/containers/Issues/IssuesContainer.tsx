@@ -5,6 +5,7 @@ import * as Type from '../../types/issues';
 import AdBanner from '../../componenets/Issues/AdBanner';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import LoadingItem from '../../componenets/Issues/LoadingItem';
+import Error from '../../componenets/Error';
 
 const IDX_OF_AD_BANNER = 5;
 
@@ -19,10 +20,13 @@ const IssuesContainer = () => {
             setMoreData(false);
             const res = await Fetcher.getIssues(page);
             setIssues(prev => [...prev, ...res.data]);
+            if (!res.data.length) {
+                setMoreData(false);
+            }
             setMoreData(true);
         } catch (e) {
             console.error(e);
-            setMoreData(false);
+            return <Error />;
         } finally {
             setIsLoading(false);
         }
