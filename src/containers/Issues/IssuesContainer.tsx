@@ -4,6 +4,8 @@ import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
 import AdBanner from '../../componenets/Issues/AdBanner';
 
+const IDX_OF_AD_BANNER = 5;
+
 const IssuesContainer = () => {
     const [pageCount, setPageCount] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
@@ -35,9 +37,15 @@ const IssuesContainer = () => {
     return (
         <>
             <h1>IssuesContainer</h1>
-            {issues.map((issue: Type.issue, idx: number) =>
-                (idx + 1) % 5 ? <IssueItem issue={issue} /> : <AdBanner />
-            )}
+            <ul>
+                {issues.map((issue: Type.issue, idx: number) =>
+                    (idx + 1) % IDX_OF_AD_BANNER ? (
+                        <IssueItem key={`issue-${issue.id}`} issue={issue} />
+                    ) : (
+                        <AdBanner key={`ad-banner-${idx}`} />
+                    )
+                )}
+            </ul>
             <button onClick={getNextPage}>next page</button>
         </>
     );

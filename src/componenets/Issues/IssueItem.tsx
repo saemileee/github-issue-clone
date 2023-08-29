@@ -5,9 +5,9 @@ interface IssueItemProps {
 }
 
 const IssueItem = ({issue}: IssueItemProps) => {
-    const {id, number, title, user, created_at, comments} = issue;
+    const {number, title, user, created_at, comments} = issue;
     return (
-        <li key={`issue-${id}`}>
+        <li>
             <div>
                 <span>{number}</span>
                 <span>{title}</span>
