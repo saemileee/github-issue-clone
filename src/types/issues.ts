@@ -86,7 +86,7 @@ export interface issue {
 }
 
 export interface issueItem {
-    id: number;
+    id?: number;
     number: number;
     title: string;
     user: {
@@ -94,4 +94,16 @@ export interface issueItem {
     };
     created_at: string;
     comments: number;
+}
+
+export interface issuePost {
+    number: number;
+    title: string;
+    user: {
+        login: string;
+        avatar_url: string;
+    };
+    created_at: string;
+    comments: number;
+    body: string;
 }

@@ -42,7 +42,7 @@ const IssuesContainer = () => {
         getNextPage();
     });
 
-    if (isLoading) return <div>로딩 중</div>;
+    if (isLoading) return <LoadingItem />;
 
     return (
         <>

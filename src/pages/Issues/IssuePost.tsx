@@ -1,7 +1,9 @@
+import IssuePostContainer from '../../containers/Issues/IssuePostContainer';
+
 const IssuePost = () => {
     return (
         <>
-            <h1>IssuePost</h1>
+            <IssuePostContainer />
         </>
     );
 };

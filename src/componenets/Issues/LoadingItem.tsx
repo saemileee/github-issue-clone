@@ -1,5 +1,5 @@
 interface LoadingItemProps {
-    innerRef: any;
+    innerRef?: any;
 }
 
 const LoadingItem = ({innerRef}: LoadingItemProps) => {
