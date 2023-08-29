@@ -1,5 +1,6 @@
 import * as Type from '../../types/issues';
 import IssueItem from '../../componenets/Issues/IssueItem';
+import {ReactMarkdown} from 'react-markdown/lib/react-markdown';
 
 interface IssuePostProps {
     issueInfo: Type.issuePost;
@@ -17,7 +18,9 @@ const IssuePost = ({issueInfo}: IssuePostProps) => {
                     <IssueItem issue={{number, title, user, created_at, comments}} />
                 </div>
             </div>
-            <div>{body}</div>
+            <div>
+                <ReactMarkdown children={body} />
+            </div>
         </>
     );
 };
