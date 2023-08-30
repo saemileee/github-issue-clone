@@ -13,20 +13,24 @@ const IDX_OF_AD_BANNER = 5;
 
 const IssuesContainer = () => {
     const [issues, setIssues] = useRecoilState(issuesState);
-    const {isLoading, pageCount, moreData, issues: issuesData} = issues;
+    const {isRefetchNeeded, isLoading, pageCount, moreData, issues: issuesData} = issues;
 
     const getIssues = async (page: number) => {
         try {
             setIssues((prev: Type.issuesState) => ({...prev, moreData: false}));
             const res = await Fetcher.getIssues(page);
+            if (!res.data.length) {
+                setIssues((prev: Type.issuesState) => ({
+                    ...prev,
+                    moreData: false,
+                }));
+            }
             setIssues((prev: Type.issuesState) => ({
                 ...prev,
+                isRefetchNeeded: false,
+                moreData: true,
                 issues: [...prev.issues, ...res.data],
             }));
-            if (!res.data.length) {
-                setIssues((prev: Type.issuesState) => ({...prev, moreData: false}));
-            }
-            setIssues((prev: Type.issuesState) => ({...prev, moreData: true}));
         } catch (e) {
             console.error(e);
             return <Error />;
@@ -36,7 +40,7 @@ const IssuesContainer = () => {
     };
 
     useEffect(() => {
-        getIssues(1);
+        isRefetchNeeded && getIssues(1);
     }, []);
 
     const getNextPage = () => {
