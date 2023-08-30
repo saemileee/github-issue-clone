@@ -10,8 +10,8 @@ import {useRecoilState} from 'recoil';
 import {issuesState} from '../../contexts/IssuesAtom';
 import styled from 'styled-components';
 import IssueList from '../../componenets/Issues/IssueList';
+import LoadingList from '../../componenets/Issues/LoadingList';
 
-const LOADING_COMP_COUNTS = 5;
 const IssuesContainer = () => {
     const [issues, setIssues] = useRecoilState(issuesState);
     const {isLoading, pageCount, moreData, issues: issuesData} = issues;
@@ -57,13 +57,7 @@ const IssuesContainer = () => {
     return (
         <StyledIssuesContainer>
             <div className='head'>Issues</div>
-            {isLoading ? (
-                new Array(LOADING_COMP_COUNTS)
-                    .fill(0)
-                    .map((_, idx: number) => <LoadingItem key={`loading-${idx}`} />)
-            ) : (
-                <IssueList issuesData={issuesData} />
-            )}
+            {isLoading ? <LoadingList /> : <IssueList issuesData={issuesData} />}
             {moreData && <LoadingItem innerRef={getNextPageRef} />}
         </StyledIssuesContainer>
     );

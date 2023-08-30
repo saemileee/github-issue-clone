@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {StyledIssueListLayout} from './IssueItem';
+import {StyledIssueItem} from './IssueItem';
 
 interface LoadingItemProps {
     innerRef?: any;
@@ -17,7 +17,7 @@ const LoadingItem = ({innerRef}: LoadingItemProps) => {
     );
 };
 
-const StyledLoadingItem = styled(StyledIssueListLayout)`
+const StyledLoadingItem = styled(StyledIssueItem)`
     div {
         border-radius: 6px;
     }

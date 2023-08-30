@@ -17,7 +17,7 @@ const IssueItem = ({issue}: IssueItemProps) => {
         navigate(`${ROUTES.ISSUES}/${number}`);
     };
     return (
-        <StyledIssueList>
+        <StyledIssueItem>
             <div className='left-container'>
                 <div className='top-container' onClick={navigateToPostPage}>
                     <span className='number'>#{number}</span>
@@ -38,22 +38,16 @@ const IssueItem = ({issue}: IssueItemProps) => {
                     코멘트 <span>{comments}</span>
                 </label>
             </div>
-        </StyledIssueList>
+        </StyledIssueItem>
     );
 };
 
-export const StyledIssueListLayout = styled.li`
-    padding: 12px;
-    width: 100%;
-    box-sizing: border-box;
+export const StyledIssueItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid gray;
-`;
 
-const StyledIssueList = styled(StyledIssueListLayout)`
     .left-container {
         display: flex;
         flex-direction: column;
@@ -86,10 +80,6 @@ const StyledIssueList = styled(StyledIssueListLayout)`
         span {
             font-weight: 500;
         }
-    }
-
-    &:hover {
-        background-color: lightgray;
     }
 `;
 
