@@ -1,11 +1,11 @@
 import IssuesContainer from '../../containers/Issues/IssuesContainer';
+import {DefaultContainer} from '../../styles/DefaultContainer.styled';
 
 const Issues = () => {
     return (
-        <>
-            <h1>Issue List</h1>
+        <DefaultContainer>
             <IssuesContainer />
-        </>
+        </DefaultContainer>
     );
 };
 
