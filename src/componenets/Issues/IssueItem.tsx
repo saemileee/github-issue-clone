@@ -43,6 +43,7 @@ const IssueItem = ({issue}: IssueItemProps) => {
 };
 
 export const StyledIssueItem = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,7 +55,6 @@ export const StyledIssueItem = styled.div`
         gap: 10px;
         .top-container {
             display: inline;
-            cursor: pointer;
 
             .number {
                 margin-right: 6px;
@@ -62,9 +62,6 @@ export const StyledIssueItem = styled.div`
             .title {
                 font-size: 18px;
                 font-weight: 600;
-            }
-            &:hover {
-                color: blue;
             }
         }
         .bottom-container {

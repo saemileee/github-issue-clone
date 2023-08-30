@@ -44,6 +44,15 @@ const StyledIssueList = styled(StyledIssueListLayout)`
     &:hover {
         background-color: lightgray;
     }
+    .left-container {
+        .top-container {
+            cursor: pointer;
+
+            &:hover {
+                color: blue;
+            }
+        }
+    }
 `;
 
 export default IssueList;
