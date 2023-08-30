@@ -107,3 +107,10 @@ export interface issuePost {
     comments: number;
     body: string;
 }
+
+export interface issuesState {
+    isLoading: boolean;
+    pageCount: number;
+    moreData: boolean;
+    issues: issueItem[] | [];
+}

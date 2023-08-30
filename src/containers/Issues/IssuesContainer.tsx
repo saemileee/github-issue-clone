@@ -1,4 +1,4 @@
-import {RefObject, useEffect, useState} from 'react';
+import {RefObject, useEffect} from 'react';
 import IssueItem from '../../componenets/Issues/IssueItem';
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
@@ -6,29 +6,32 @@ import AdBanner from '../../componenets/Issues/AdBanner';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import LoadingItem from '../../componenets/Issues/LoadingItem';
 import Error from '../../componenets/Error';
+import {useRecoilState} from 'recoil';
+import {issuesState} from '../../contexts/IssuesAtom';
 
 const IDX_OF_AD_BANNER = 5;
 
 const IssuesContainer = () => {
-    const [pageCount, setPageCount] = useState(1);
-    const [isLoading, setIsLoading] = useState(true);
-    const [issues, setIssues] = useState<Type.issueItem[] | []>([]);
-    const [moreData, setMoreData] = useState(true);
+    const [issues, setIssues] = useRecoilState(issuesState);
+    const {isLoading, pageCount, moreData, issues: issuesData} = issues;
 
     const getIssues = async (page: number) => {
         try {
-            setMoreData(false);
+            setIssues((prev: Type.issuesState) => ({...prev, moreData: false}));
             const res = await Fetcher.getIssues(page);
-            setIssues(prev => [...prev, ...res.data]);
+            setIssues((prev: Type.issuesState) => ({
+                ...prev,
+                issues: [...prev.issues, ...res.data],
+            }));
             if (!res.data.length) {
-                setMoreData(false);
+                setIssues((prev: Type.issuesState) => ({...prev, moreData: false}));
             }
-            setMoreData(true);
+            setIssues((prev: Type.issuesState) => ({...prev, moreData: true}));
         } catch (e) {
             console.error(e);
             return <Error />;
         } finally {
-            setIsLoading(false);
+            setIssues((prev: Type.issuesState) => ({...prev, isLoading: false}));
         }
     };
 
@@ -38,7 +41,7 @@ const IssuesContainer = () => {
 
     const getNextPage = () => {
         const newPageCount = pageCount + 1;
-        setPageCount(newPageCount);
+        setIssues((prev: Type.issuesState) => ({...prev, pageCount: newPageCount}));
         getIssues(newPageCount);
     };
 
@@ -52,7 +55,7 @@ const IssuesContainer = () => {
         <>
             <h1>IssuesContainer</h1>
             <ul>
-                {issues.map((issue: Type.issueItem, idx: number) =>
+                {issuesData.map((issue: Type.issueItem, idx: number) =>
                     (idx + 1) % IDX_OF_AD_BANNER ? (
                         <IssueItem key={`issue-${issue.id}`} issue={issue} />
                     ) : (

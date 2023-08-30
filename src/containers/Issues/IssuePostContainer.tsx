@@ -26,6 +26,7 @@ const IssuePostContainer = () => {
             const res = await Fetcher.getIssue(postId);
             setIssueInfo(res.data);
         } catch (e) {
+            console.error(e);
             return <Error />;
         }
     };
