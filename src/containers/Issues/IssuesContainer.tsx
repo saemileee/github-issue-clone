@@ -1,15 +1,15 @@
 import {RefObject, useEffect} from 'react';
-import IssueItem from '../../componenets/Issues/IssueItem';
+
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
-import AdBanner from '../../componenets/Issues/AdBanner';
+
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import LoadingItem from '../../componenets/Issues/LoadingItem';
 import Error from '../../componenets/Error';
 import {useRecoilState} from 'recoil';
 import {issuesState} from '../../contexts/IssuesAtom';
-
-const IDX_OF_AD_BANNER = 5;
+import styled from 'styled-components';
+import IssueList from '../../componenets/Issues/IssueList';
 
 const IssuesContainer = () => {
     const [issues, setIssues] = useRecoilState(issuesState);
@@ -56,20 +56,26 @@ const IssuesContainer = () => {
     if (isLoading) return <LoadingItem />;
 
     return (
-        <>
-            <h1>IssuesContainer</h1>
-            <ul>
-                {issuesData.map((issue: Type.issueItem, idx: number) =>
-                    (idx + 1) % IDX_OF_AD_BANNER ? (
-                        <IssueItem key={`issue-${issue.id}`} issue={issue} />
-                    ) : (
-                        <AdBanner key={`ad-banner-${idx}`} />
-                    )
-                )}
-            </ul>
+        <StyledContainer>
+            <div className='head'>Issues</div>
+            {isLoading ? <LoadingItem /> : <IssueList issuesData={issuesData} />}
             {moreData && <LoadingItem innerRef={getNextPageRef} />}
-        </>
+        </StyledContainer>
     );
 };
 
+const StyledContainer = styled.div`
+    max-width: 768px;
+    border: 1px solid gray;
+    border-radius: 12px;
+    overflow: hidden;
+
+    .head {
+        padding: 16px;
+        border-bottom: 1px solid gray;
+        background-color: lightgray;
+        font-size: 16px;
+        font-weight: 600;
+    }
+`;
 export default IssuesContainer;

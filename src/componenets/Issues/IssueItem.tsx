@@ -10,24 +10,32 @@ const IssueItem = ({issue}: IssueItemProps) => {
     const navigate = useNavigate();
     const {number, title, user, created_at, comments} = issue;
 
+    const localizedCreatedAt = new Date(created_at).toLocaleDateString();
+
     const navigateToPostPage = () => {
         navigate(`${ROUTES.ISSUES}/${number}`);
     };
     return (
-        <li onClick={navigateToPostPage}>
-            <div>
-                <span>{number}</span>
-                <span>{title}</span>
+        <li>
+            <div className='left-container'>
+                <div className='top-container' onClick={navigateToPostPage}>
+                    <span className='number'>#{number}</span>
+                    <span className='title'>{title}</span>
+                </div>
+                <div className='bottom-container'>
+                    <label>
+                        작성자 : <span>{user.login}</span>
+                    </label>
+                    /
+                    <label>
+                        작성일 : <span>{localizedCreatedAt}</span>
+                    </label>
+                </div>
             </div>
-            <div>
-                <span>작성자</span>
-                <span>{user.login}</span>
-                <span>작성일</span>
-                <span>{created_at}</span>
-            </div>
-            <div>
-                <span>코멘트</span>
-                <span>{comments}</span>
+            <div className='right-container'>
+                <label>
+                    코멘트 <span>{comments}</span>
+                </label>
             </div>
         </li>
     );
