@@ -8,7 +8,7 @@ import LoadingItem from '../../componenets/Issues/LoadingItem';
 import {useRecoilState} from 'recoil';
 import {issuesState} from '../../contexts/IssuesAtom';
 import styled from 'styled-components';
-import IssueList from '../../componenets/Issues/IssueList';
+import IssueList, {StyledIssueListLayout} from '../../componenets/Issues/IssueList';
 import LoadingList from '../../componenets/Issues/LoadingList';
 
 import colorPalette from '../../styles/colorPalette.styled';
@@ -69,7 +69,11 @@ const IssuesContainer = () => {
         <StyledIssuesContainer>
             <div className='head'>Issues</div>
             {isLoading ? <LoadingList /> : <IssueList issuesData={issuesData} />}
-            {moreData && <LoadingItem innerRef={getNextPageRef} />}
+            {moreData && (
+                <StyledIssueListLayout>
+                    <LoadingItem innerRef={getNextPageRef} />
+                </StyledIssueListLayout>
+            )}
         </StyledIssuesContainer>
     );
 };

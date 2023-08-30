@@ -29,6 +29,7 @@ const StyledLoadingItem = styled(StyledIssueItem)`
         display: flex;
         flex-direction: column;
         gap: 10px;
+        position: relative;
 
         .top-container {
             height: 21px;
