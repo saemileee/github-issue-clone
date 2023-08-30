@@ -7,20 +7,30 @@ import colorPalette from '../../styles/colorPalette.styled';
 interface issueListProps {
     issuesData?: Type.issueItem[];
 }
-const IDX_OF_AD_BANNER = 5;
+const IDX_OF_AD_BANNER = 4;
 const IssueList = ({issuesData}: issueListProps) => {
     return (
         <StyledIssueListContainer>
             {issuesData &&
-                issuesData.map((issue: Type.issueItem, idx: number) =>
-                    (idx + 1) % IDX_OF_AD_BANNER ? (
-                        <StyledIssueList>
-                            <IssueItem key={`issue-${issue.id}`} issue={issue} />
-                        </StyledIssueList>
-                    ) : (
-                        <AdBanner key={`ad-banner-${idx}`} />
-                    )
-                )}
+                issuesData.map((issue: Type.issueItem, idx: number) => {
+                    if ((idx + 1) % IDX_OF_AD_BANNER === 0) {
+                        return (
+                            <>
+                                <StyledIssueList>
+                                    <IssueItem key={`issue-${issue.id}`} issue={issue} />
+                                </StyledIssueList>
+                                <AdBanner key={`ad-banner-${idx}`} />
+                            </>
+                        );
+                    }
+                    return (
+                        <>
+                            <StyledIssueList>
+                                <IssueItem key={`issue-${issue.id}`} issue={issue} />
+                            </StyledIssueList>
+                        </>
+                    );
+                })}
         </StyledIssueListContainer>
     );
 };
