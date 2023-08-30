@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import * as Type from '../../types/issues';
 import ROUTES from '../../constants/routes';
+import styled from 'styled-components';
 
 interface IssueItemProps {
     issue: Type.issueItem;
@@ -16,7 +17,7 @@ const IssueItem = ({issue}: IssueItemProps) => {
         navigate(`${ROUTES.ISSUES}/${number}`);
     };
     return (
-        <li>
+        <StyledIssueList>
             <div className='left-container'>
                 <div className='top-container' onClick={navigateToPostPage}>
                     <span className='number'>#{number}</span>
@@ -37,8 +38,59 @@ const IssueItem = ({issue}: IssueItemProps) => {
                     코멘트 <span>{comments}</span>
                 </label>
             </div>
-        </li>
+        </StyledIssueList>
     );
 };
+
+export const StyledIssueListLayout = styled.li`
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid gray;
+`;
+
+const StyledIssueList = styled(StyledIssueListLayout)`
+    .left-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .top-container {
+            display: inline;
+            cursor: pointer;
+
+            .number {
+                margin-right: 6px;
+            }
+            .title {
+                font-size: 18px;
+                font-weight: 600;
+            }
+            &:hover {
+                color: blue;
+            }
+        }
+        .bottom-container {
+            display: flex;
+            gap: 6px;
+            color: gray;
+        }
+    }
+    .right-container {
+        flex-shrink: 0;
+        font-size: 14px;
+        color: gray;
+        span {
+            font-weight: 500;
+        }
+    }
+
+    &:hover {
+        background-color: lightgray;
+    }
+`;
 
 export default IssueItem;

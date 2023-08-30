@@ -11,6 +11,7 @@ import {issuesState} from '../../contexts/IssuesAtom';
 import styled from 'styled-components';
 import IssueList from '../../componenets/Issues/IssueList';
 
+const LOADING_COMP_COUNTS = 5;
 const IssuesContainer = () => {
     const [issues, setIssues] = useRecoilState(issuesState);
     const {isLoading, pageCount, moreData, issues: issuesData} = issues;
@@ -53,18 +54,22 @@ const IssuesContainer = () => {
         getNextPage();
     });
 
-    if (isLoading) return <LoadingItem />;
-
     return (
-        <StyledContainer>
+        <StyledIssuesContainer>
             <div className='head'>Issues</div>
-            {isLoading ? <LoadingItem /> : <IssueList issuesData={issuesData} />}
+            {isLoading ? (
+                new Array(LOADING_COMP_COUNTS)
+                    .fill(0)
+                    .map((_, idx: number) => <LoadingItem key={`loading-${idx}`} />)
+            ) : (
+                <IssueList issuesData={issuesData} />
+            )}
             {moreData && <LoadingItem innerRef={getNextPageRef} />}
-        </StyledContainer>
+        </StyledIssuesContainer>
     );
 };
 
-const StyledContainer = styled.div`
+const StyledIssuesContainer = styled.div`
     max-width: 768px;
     border: 1px solid gray;
     border-radius: 12px;
