@@ -4,6 +4,7 @@ import ROUTES from './constants/routes';
 import Issues from './pages/Issues/Issues';
 import IssuePost from './pages/Issues/IssuePost';
 import NotFound from './pages/NotFound';
+import Header from './componenets/Header';
 
 export const Router = createBrowserRouter([
     {
@@ -23,6 +24,11 @@ export const Router = createBrowserRouter([
                 element: <IssuePost />,
             },
         ],
-        errorElement: <NotFound />,
+        errorElement: (
+            <>
+                <Header />
+                <NotFound />
+            </>
+        ),
     },
 ]);
