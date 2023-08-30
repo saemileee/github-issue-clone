@@ -6,6 +6,7 @@ const colorPalette = {
     listItemHoverBg: 'rgba(208, 215, 222, 0.32)',
     textDefault: '#1f2328',
     textSubtitle: '#6e7781',
+    textCode: '#E6E8EF',
 };
 
 export default colorPalette;
