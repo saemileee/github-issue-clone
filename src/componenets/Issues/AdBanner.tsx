@@ -6,7 +6,7 @@ const AdBanner = () => {
         <StyledAdBannerContainer>
             <a href='https://www.wanted.co.kr/' target='_blank' rel='noreferrer'>
                 <span className='ad-tag'>ad.</span>
-                <img alt='ad_banner' src='/asset/images/ad_image.png' />
+                <img alt='ad_banner' src='/asset/images/ad_image.jpg' />
             </a>
         </StyledAdBannerContainer>
     );
