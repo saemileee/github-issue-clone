@@ -4,11 +4,13 @@ import * as Type from '../../types/issues';
 import IssuePost from '../../componenets/Issues/IssuePost';
 import {useParams} from 'react-router-dom';
 import Error from '../../componenets/Error';
+import LoadingPost from '../../componenets/Issues/LoadingPost';
 
 const IssuePostContainer = () => {
     const params = useParams();
     const postId = parseInt(params.id!);
 
+    const [isLoading, setIsLoading] = useState(true);
     const [issueInfo, setIssueInfo] = useState<Type.issuePost>({
         number: 0,
         title: '',
@@ -28,6 +30,8 @@ const IssuePostContainer = () => {
         } catch (e) {
             console.error(e);
             return <Error />;
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -35,11 +39,7 @@ const IssuePostContainer = () => {
         getIssueInfo();
     }, []);
 
-    return (
-        <>
-            <IssuePost issueInfo={issueInfo} />
-        </>
-    );
+    return <>{isLoading ? <LoadingPost /> : <IssuePost issueInfo={issueInfo} />}</>;
 };
 
 export default IssuePostContainer;

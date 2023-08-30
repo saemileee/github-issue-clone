@@ -24,7 +24,7 @@ const IssuePost = ({issueInfo}: IssuePostProps) => {
     );
 };
 
-const StyledIssuePostContainer = styled.div`
+export const StyledIssuePostContainer = styled.div`
     max-width: 768px;
     border: 1px solid gray;
     border-radius: 12px;
@@ -38,6 +38,7 @@ const StyledIssuePostContainer = styled.div`
         border-bottom: 1px solid gray;
         .user-avater-container {
             width: 60px;
+            border-radius: 8px;
             overflow: hidden;
             img {
                 width: 100%;
