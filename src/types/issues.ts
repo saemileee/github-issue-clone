@@ -109,7 +109,6 @@ export interface issuePost {
 }
 
 export interface issuesState {
-    isRefetchNeeded: boolean;
     isLoading: boolean;
     pageCount: number;
     moreData: boolean;

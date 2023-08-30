@@ -13,7 +13,8 @@ const IDX_OF_AD_BANNER = 5;
 
 const IssuesContainer = () => {
     const [issues, setIssues] = useRecoilState(issuesState);
-    const {isRefetchNeeded, isLoading, pageCount, moreData, issues: issuesData} = issues;
+    const {isLoading, pageCount, moreData, issues: issuesData} = issues;
+    const isRefetchNeeded = !issuesData.length;
 
     const getIssues = async (page: number) => {
         try {
@@ -27,7 +28,6 @@ const IssuesContainer = () => {
             }
             setIssues((prev: Type.issuesState) => ({
                 ...prev,
-                isRefetchNeeded: false,
                 moreData: true,
                 issues: [...prev.issues, ...res.data],
             }));
