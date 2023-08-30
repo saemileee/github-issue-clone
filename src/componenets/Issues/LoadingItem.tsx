@@ -19,6 +19,7 @@ const LoadingItem = ({innerRef}: LoadingItemProps) => {
 };
 
 const StyledLoadingItem = styled(StyledIssueItem)`
+    width: 100%;
     div {
         border-radius: 6px;
     }

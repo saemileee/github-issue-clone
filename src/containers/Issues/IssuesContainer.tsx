@@ -72,6 +72,7 @@ const StyledIssuesContainer = styled.div`
     overflow: hidden;
 
     .head {
+        min-width: 768px;
         padding: 16px;
         border-bottom: 1px solid ${colorPalette.listBorder};
         background-color: ${colorPalette.listItemBg};

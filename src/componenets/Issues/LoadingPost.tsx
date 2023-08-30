@@ -18,6 +18,7 @@ const LoadingPost = () => {
 };
 
 const LoadingPostContainer = styled(StyledIssuePostContainer)`
+    width: 100%;
     .user-avater-container {
         height: 60px;
         background-color: ${colorPalette.listItemBg};
