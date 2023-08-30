@@ -6,7 +6,7 @@ import colorPalette from '../../styles/colorPalette.styled';
 import remarkGfm from 'remark-gfm';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {materialDark} from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import {markdownComment} from '../../utils/regex';
+import rehypeRaw from 'rehype-raw';
 
 interface IssuePostProps {
     issueInfo: Type.issuePost;
@@ -14,8 +14,6 @@ interface IssuePostProps {
 
 const IssuePost = ({issueInfo}: IssuePostProps) => {
     const {number, title, user, created_at, comments, body} = issueInfo;
-
-    const commentDeletedBody = body.replace(markdownComment, '');
 
     return (
         <StyledIssuePostContainer>
@@ -27,10 +25,24 @@ const IssuePost = ({issueInfo}: IssuePostProps) => {
             </div>
             <div className='post-body-container'>
                 <ReactMarkdown
-                    children={commentDeletedBody}
+                    children={body}
                     remarkPlugins={[remarkGfm]}
+                    disallowedElements={['video']}
                     components={{
+                        blockquote: ({node, ...props}) => (
+                            <blockquote
+                                style={{
+                                    marginLeft: '12px',
+                                    paddingLeft: '14px',
+                                    borderLeft: `4px solid ${colorPalette.textSubtitle}`,
+                                }}
+                                {...props}
+                            />
+                        ),
                         p: ({node, ...props}) => <p style={{lineHeight: '1.5rem'}} {...props} />,
+                        li: ({node, ...props}) => (
+                            <li style={{lineHeight: '1.5rem', marginBottom: '12px'}} {...props} />
+                        ),
                         img: ({node, ...props}) => (
                             // eslint-disable-next-line jsx-a11y/alt-text
                             <img
@@ -55,7 +67,7 @@ const IssuePost = ({issueInfo}: IssuePostProps) => {
                                 <code
                                     style={{
                                         backgroundColor: colorPalette.textCode,
-                                        padding: '4px',
+                                        padding: '2px 4px 2px 4px',
                                         borderRadius: '3px',
                                         fontSize: '14px',
                                     }}
@@ -66,6 +78,9 @@ const IssuePost = ({issueInfo}: IssuePostProps) => {
                             );
                         },
                     }}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    rehypePlugins={[rehypeRaw]}
                 />
             </div>
         </StyledIssuePostContainer>
