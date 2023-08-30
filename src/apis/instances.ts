@@ -11,12 +11,12 @@ export const axiosIssuesInstance = axios.create({
 
 axiosIssuesInstance.interceptors.request.use(
     config => config,
-    err => err
+    err => Promise.reject(err)
 );
 
 axiosIssuesInstance.interceptors.response.use(
     config => config,
-    err => err
+    err => Promise.reject(err)
 );
 
 export default axiosIssuesInstance;
