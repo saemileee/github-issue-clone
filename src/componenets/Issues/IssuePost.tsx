@@ -2,6 +2,7 @@ import * as Type from '../../types/issues';
 import IssueItem from '../../componenets/Issues/IssueItem';
 import {ReactMarkdown} from 'react-markdown/lib/react-markdown';
 import styled from 'styled-components';
+import colorPalette from '../../styles/colorPalette.styled';
 
 interface IssuePostProps {
     issueInfo: Type.issuePost;
@@ -26,7 +27,7 @@ const IssuePost = ({issueInfo}: IssuePostProps) => {
 
 export const StyledIssuePostContainer = styled.div`
     max-width: 768px;
-    border: 1px solid gray;
+    border: 1px solid ${colorPalette.listBorder};
     border-radius: 12px;
     overflow-wrap: break-word;
     box-sizing: border-box;
@@ -35,7 +36,7 @@ export const StyledIssuePostContainer = styled.div`
         display: flex;
         padding: 16px;
         gap: 16px;
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid ${colorPalette.listBorder};
         .user-avater-container {
             width: 60px;
             border-radius: 8px;

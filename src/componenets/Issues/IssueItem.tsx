@@ -2,6 +2,7 @@ import {useNavigate} from 'react-router-dom';
 import * as Type from '../../types/issues';
 import ROUTES from '../../constants/routes';
 import styled from 'styled-components';
+import colorPalette from '../../styles/colorPalette.styled';
 
 interface IssueItemProps {
     issue: Type.issueItem;
@@ -67,13 +68,13 @@ export const StyledIssueItem = styled.div`
         .bottom-container {
             display: flex;
             gap: 6px;
-            color: gray;
+            color: ${colorPalette.textSubtitle};
         }
     }
     .right-container {
         flex-shrink: 0;
         font-size: 14px;
-        color: gray;
+        color: ${colorPalette.textSubtitle};
         span {
             font-weight: 500;
         }

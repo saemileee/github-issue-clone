@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colorPalette from '../../styles/colorPalette.styled';
 
 const AdBanner = () => {
     return (
@@ -12,7 +13,7 @@ const AdBanner = () => {
 };
 
 const StyledAdBannerContainer = styled.div`
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid ${colorPalette.listBorder};
     cursor: pointer;
     a {
         display: flex;
@@ -24,9 +25,9 @@ const StyledAdBannerContainer = styled.div`
             position: absolute;
             margin-top: 5px;
             right: 10px;
-            color: gray;
+            color: ${colorPalette.textSubtitle};
             border-radius: 4px;
-            background-color: lightgray;
+            background-color: ${colorPalette.listItemBg};
         }
         img {
             width: 100%;

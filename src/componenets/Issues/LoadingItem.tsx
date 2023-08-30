@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {StyledIssueItem} from './IssueItem';
+import colorPalette from '../../styles/colorPalette.styled';
 
 interface LoadingItemProps {
     innerRef?: any;
@@ -30,12 +31,12 @@ const StyledLoadingItem = styled(StyledIssueItem)`
 
         .top-container {
             height: 21px;
-            background-color: lightgray;
+            background-color: ${colorPalette.listItemBg};
         }
 
         .bottom-container {
             height: 21px;
-            background-color: lightgray;
+            background-color: ${colorPalette.listItemBg};
         }
     }
 
@@ -43,7 +44,7 @@ const StyledLoadingItem = styled(StyledIssueItem)`
         flex-shrink: 0;
         width: 70px;
         height: 16px;
-        background-color: lightgray;
+        background-color: ${colorPalette.listItemBg};
     }
 `;
 

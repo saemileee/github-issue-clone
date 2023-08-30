@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colorPalette from '../colorPalette.styled';
 
 export const IssueListLi = styled.li`
     padding: 12px;
@@ -8,5 +9,5 @@ export const IssueListLi = styled.li`
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid ${colorPalette.listBorder};
 `;

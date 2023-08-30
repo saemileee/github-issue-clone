@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {OWNER, REPO} from '../constants/repoInfo';
+import colorPalette from '../styles/colorPalette.styled';
 
 const Header = () => {
     return (
@@ -12,7 +13,7 @@ const Header = () => {
 const StyledHeader = styled.header`
     padding: 16px 0 16px 0;
     min-width: 100vw;
-    background-color: lightgray;
+    background-color: ${colorPalette.listItemBg};
     text-align: center;
     .repo {
         font-weight: 600;

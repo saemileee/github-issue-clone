@@ -2,6 +2,7 @@ import IssueItem from '../../componenets/Issues/IssueItem';
 import AdBanner from '../../componenets/Issues/AdBanner';
 import * as Type from '../../types/issues';
 import styled from 'styled-components';
+import colorPalette from '../../styles/colorPalette.styled';
 
 interface issueListProps {
     issuesData?: Type.issueItem[];
@@ -33,7 +34,7 @@ export const StyledIssueListContainer = styled.ul`
 export const StyledIssueListLayout = styled.li`
     padding: 12px;
     width: 100%;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid ${colorPalette.listBorder};
     box-sizing: border-box;
     &:last-child {
         border-bottom: none;
@@ -42,14 +43,14 @@ export const StyledIssueListLayout = styled.li`
 
 const StyledIssueList = styled(StyledIssueListLayout)`
     &:hover {
-        background-color: lightgray;
+        background-color: ${colorPalette.listItemHoverBg};
     }
     .left-container {
         .top-container {
             cursor: pointer;
 
             &:hover {
-                color: blue;
+                color: ${colorPalette.highLighting};
             }
         }
     }

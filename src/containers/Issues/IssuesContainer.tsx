@@ -12,6 +12,8 @@ import styled from 'styled-components';
 import IssueList from '../../componenets/Issues/IssueList';
 import LoadingList from '../../componenets/Issues/LoadingList';
 
+import colorPalette from '../../styles/colorPalette.styled';
+
 const IssuesContainer = () => {
     const [issues, setIssues] = useRecoilState(issuesState);
     const {isLoading, pageCount, moreData, issues: issuesData} = issues;
@@ -65,14 +67,14 @@ const IssuesContainer = () => {
 
 const StyledIssuesContainer = styled.div`
     max-width: 768px;
-    border: 1px solid gray;
+    border: 1px solid ${colorPalette.listBorder};
     border-radius: 12px;
     overflow: hidden;
 
     .head {
         padding: 16px;
-        border-bottom: 1px solid gray;
-        background-color: lightgray;
+        border-bottom: 1px solid ${colorPalette.listBorder};
+        background-color: ${colorPalette.listItemBg};
         font-size: 16px;
         font-weight: 600;
     }
