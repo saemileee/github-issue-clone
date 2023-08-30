@@ -14,8 +14,8 @@ const IssueList = ({issuesData}: issueListProps) => {
             {issuesData &&
                 issuesData.map((issue: Type.issueItem, idx: number) =>
                     (idx + 1) % IDX_OF_AD_BANNER ? (
-                        <StyledIssueList>
-                            <IssueItem key={`issue-${issue.id}`} issue={issue} />
+                        <StyledIssueList key={`issue-${issue.id}`}>
+                            <IssueItem issue={issue} />
                         </StyledIssueList>
                     ) : (
                         <AdBanner key={`ad-banner-${idx}`} />
