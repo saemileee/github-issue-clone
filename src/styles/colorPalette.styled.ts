@@ -1,6 +1,6 @@
 const colorPalette = {
     canvasDefault: 'rgba(255, 255, 255, 0)',
-    highLighting: '#54aeff',
+    highLighting: '#2C5BF2',
     listItemBg: 'rgba(208, 215, 222, 0.48)',
     listBorder: 'rgba(208, 215, 222, 0.48)',
     listItemHoverBg: 'rgba(208, 215, 222, 0.32)',

@@ -32,7 +32,7 @@ export const StyledIssueListContainer = styled.ul`
 `;
 
 export const StyledIssueListLayout = styled.li`
-    padding: 12px;
+    padding: 16px;
     width: 100%;
     border-bottom: 1px solid ${colorPalette.listBorder};
     box-sizing: border-box;
