@@ -13,35 +13,8 @@ const IssuePostContainer = () => {
     const params = useParams();
     const postId = parseInt(params.id!);
 
-    const [errorStatus, setErrorStatus] = useState<number | string>(0);
-    const [isLoading, setIsLoading] = useState(true);
-    const [issueInfo, setIssueInfo] = useState<Type.issuePost>({
-        number: 0,
-        title: '',
-        user: {
-            login: '',
-            avatar_url: '',
-        },
-        created_at: '',
-        comments: 0,
-        body: '',
-    });
-
-    const getIssueInfo = async () => {
-        try {
-            const res = await Fetcher.getIssue(postId);
-            setIssueInfo(res.data);
-        } catch (e) {
-            if (e instanceof AxiosError && e.response) {
-                setErrorStatus(e.response.status);
-            } else {
-                console.error(e);
-                setErrorStatus(INVALID_ERROR_MSG);
-            }
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    const {issueState, getIssueInfo} = IssuePostController(postId);
+    const {isLoading, issueInfo, errorStatus} = issueState;
 
     useEffect(() => {
         getIssueInfo();
@@ -55,6 +28,40 @@ const IssuePostContainer = () => {
             {!isLoading && !errorStatus && <IssuePost issueInfo={issueInfo} />}
         </>
     );
+};
+
+const IssuePostController = (postId: number) => {
+    const [issueState, setIssueState] = useState<Type.issuePostState>({
+        isLoading: true,
+        errorStatus: 0,
+        issueInfo: {
+            number: 0,
+            title: '',
+            user: {
+                login: '',
+                avatar_url: '',
+            },
+            created_at: '',
+            comments: 0,
+            body: '',
+        },
+    });
+
+    const getIssueInfo = async () => {
+        try {
+            const res = await Fetcher.getIssue(postId);
+            setIssueState((prev: Type.issuePostState) => ({...prev, issueInfo: res.data}));
+        } catch (e) {
+            const error = e as AxiosError;
+            setIssueState((prev: Type.issuePostState) => ({
+                ...prev,
+                errorStatus: error.response?.status ?? INVALID_ERROR_MSG,
+            }));
+        } finally {
+            setIssueState((prev: Type.issuePostState) => ({...prev, isLoading: false}));
+        }
+    };
+    return {issueState, getIssueInfo};
 };
 
 export default IssuePostContainer;
