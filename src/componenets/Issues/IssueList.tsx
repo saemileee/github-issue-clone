@@ -46,9 +46,7 @@ export const StyledIssueListLayout = styled.li`
     width: 100%;
     border-bottom: 1px solid ${colorPalette.listBorder};
     box-sizing: border-box;
-    &:last-child {
-        border-bottom: none;
-    }
+    list-style: none;
 `;
 
 const StyledIssueList = styled(StyledIssueListLayout)`

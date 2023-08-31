@@ -1,20 +1,23 @@
-import {RefObject, useEffect} from 'react';
+import {RefObject, useEffect, useState} from 'react';
 
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
 
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import LoadingItem from '../../componenets/Issues/LoadingItem';
-import Error from '../../componenets/Error';
 import {useRecoilState} from 'recoil';
 import {issuesState} from '../../contexts/IssuesAtom';
 import styled from 'styled-components';
-import IssueList from '../../componenets/Issues/IssueList';
+import IssueList, {StyledIssueListLayout} from '../../componenets/Issues/IssueList';
 import LoadingList from '../../componenets/Issues/LoadingList';
 
 import colorPalette from '../../styles/colorPalette.styled';
+import NotFound from '../../pages/NotFound';
+import {AxiosError} from 'axios';
+import {INVALID_ERROR_MSG} from '../../constants/messages';
 
 const IssuesContainer = () => {
+    const [errorStatus, setErrorStatus] = useState<number | string>(0);
     const [issues, setIssues] = useRecoilState(issuesState);
     const {isLoading, pageCount, moreData, issues: issuesData} = issues;
     const isRefetchNeeded = !issuesData.length;
@@ -35,8 +38,12 @@ const IssuesContainer = () => {
                 issues: [...prev.issues, ...res.data],
             }));
         } catch (e) {
-            console.error(e);
-            return <Error />;
+            if (e instanceof AxiosError && e.response) {
+                setErrorStatus(e.response.status);
+            } else {
+                console.error(e);
+                setErrorStatus(INVALID_ERROR_MSG);
+            }
         } finally {
             setIssues((prev: Type.issuesState) => ({...prev, isLoading: false}));
         }
@@ -56,11 +63,17 @@ const IssuesContainer = () => {
         getNextPage();
     });
 
+    if (errorStatus) return <NotFound errorStatus={errorStatus} />;
+
     return (
         <StyledIssuesContainer>
             <div className='head'>Issues</div>
             {isLoading ? <LoadingList /> : <IssueList issuesData={issuesData} />}
-            {moreData && <LoadingItem innerRef={getNextPageRef} />}
+            {moreData && (
+                <StyledIssueListLayout>
+                    <LoadingItem innerRef={getNextPageRef} />
+                </StyledIssueListLayout>
+            )}
         </StyledIssuesContainer>
     );
 };

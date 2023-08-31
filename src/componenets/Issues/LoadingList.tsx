@@ -8,8 +8,8 @@ const LoadingList = () => {
     return (
         <StyledLoadingListContainer>
             {new Array(LOADING_COMP_COUNTS).fill(0).map((_, idx: number) => (
-                <StyledIssueListLayout>
-                    <LoadingItem key={`loading-${idx}`} />
+                <StyledIssueListLayout key={`loading-${idx}`}>
+                    <LoadingItem />
                 </StyledIssueListLayout>
             ))}
         </StyledLoadingListContainer>
