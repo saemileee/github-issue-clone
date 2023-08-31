@@ -1,11 +1,11 @@
-import {RefObject, useEffect, useState} from 'react';
+import {RefObject, useEffect} from 'react';
 import {AxiosError} from 'axios';
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
 import {useRecoilState, useRecoilValue} from 'recoil';
-import {issuesState} from '../../contexts/IssuesAtom';
+import {issuesStateAtom} from '../../contexts/IssuesAtom';
 
 import IssueList from '../../componenets/Issues/IssueList';
 import LoadingList from '../../componenets/Issues/LoadingList';
@@ -17,11 +17,12 @@ import styled from 'styled-components';
 import colorPalette from '../../styles/colorPalette.styled';
 
 const IssuesContainer = () => {
-    const issues = useRecoilValue(issuesState);
-    const {isLoading, moreData, issues: issuesData} = issues;
+    const issuesState = useRecoilValue(issuesStateAtom);
+    const {isLoading, errorStatus, moreData, issues: issuesData} = issuesState;
     // 기존 issues가 있으면 기존 issues 리스트를 보여주기 위함
     const isRefetchNeeded = !issuesData.length;
-    const {getIssues, getNextPage, errorStatus} = IssuesController();
+
+    const {getIssues, getNextPage} = IssuesController();
 
     useEffect(() => {
         isRefetchNeeded && getIssues(1);
@@ -45,21 +46,20 @@ const IssuesContainer = () => {
 };
 
 const IssuesController = () => {
-    const [issues, setIssues] = useRecoilState(issuesState);
-    const [errorStatus, setErrorStatus] = useState<number | string>(0);
+    const [issuesState, setIssuesState] = useRecoilState(issuesStateAtom);
 
     const getIssues = async (page: number) => {
         try {
-            setIssues((prev: Type.issuesState) => ({...prev, moreData: false}));
+            setIssuesState((prev: Type.issuesState) => ({...prev, moreData: false}));
             const res = await Fetcher.getIssues(page);
             // 마지막 불러온 페이지가 빈 (마지막 페이지 +1 )페이지인 경우 더이상 무한스크롤 안되게 세팅
             if (!res.data.length) {
-                setIssues((prev: Type.issuesState) => ({
+                setIssuesState((prev: Type.issuesState) => ({
                     ...prev,
                     moreData: false,
                 }));
             }
-            setIssues((prev: Type.issuesState) => {
+            setIssuesState((prev: Type.issuesState) => {
                 const newIssues = res.data;
                 // 서버 통신 전 코멘트 정렬이 변경될 경우 기존 배열 필터링하고 새로운 값 받기
                 const filteredIssues = prev.issues.filter(
@@ -75,20 +75,19 @@ const IssuesController = () => {
                 };
             });
         } catch (e) {
-            if (e instanceof AxiosError && e.response) {
-                setErrorStatus(e.response.status);
-            } else {
-                console.error(e);
-                setErrorStatus(INVALID_ERROR_MSG);
-            }
+            const error = e as AxiosError;
+            setIssuesState((prev: Type.issuesState) => ({
+                ...prev,
+                errorStatus: error.response?.status ?? INVALID_ERROR_MSG,
+            }));
         } finally {
-            setIssues((prev: Type.issuesState) => ({...prev, isLoading: false}));
+            setIssuesState((prev: Type.issuesState) => ({...prev, isLoading: false}));
         }
     };
 
     const getNextPage = () => {
-        const newPageCount = issues.pageCount + 1;
-        setIssues((prev: Type.issuesState) => ({
+        const newPageCount = issuesState.pageCount + 1;
+        setIssuesState((prev: Type.issuesState) => ({
             ...prev,
             isLoading: true,
             pageCount: prev.pageCount + 1,
@@ -96,7 +95,7 @@ const IssuesController = () => {
         getIssues(newPageCount);
     };
 
-    return {getIssues, getNextPage, errorStatus};
+    return {getIssues, getNextPage};
 };
 
 const StyledIssuesContainer = styled.div`

@@ -23,6 +23,7 @@ export interface issuePost {
 
 export interface issuesState {
     isLoading: boolean;
+    errorStatus: number | string;
     pageCount: number;
     moreData: boolean;
     issues: issueItem[] | [];
