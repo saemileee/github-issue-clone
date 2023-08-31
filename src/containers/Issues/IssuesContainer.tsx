@@ -4,22 +4,23 @@ import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
 
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
-import LoadingItem from '../../componenets/Issues/LoadingItem';
 import {useRecoilState} from 'recoil';
 import {issuesState} from '../../contexts/IssuesAtom';
 import styled from 'styled-components';
-import IssueList, {StyledIssueListLayout} from '../../componenets/Issues/IssueList';
+import IssueList from '../../componenets/Issues/IssueList';
 import LoadingList from '../../componenets/Issues/LoadingList';
 
 import colorPalette from '../../styles/colorPalette.styled';
 import NotFound from '../../pages/NotFound';
 import {AxiosError} from 'axios';
 import {INVALID_ERROR_MSG} from '../../constants/messages';
+import LoadingSpinner from '../../componenets/common/LoadingSpinner';
 
 const IssuesContainer = () => {
     const [errorStatus, setErrorStatus] = useState<number | string>(0);
     const [issues, setIssues] = useRecoilState(issuesState);
     const {isLoading, pageCount, moreData, issues: issuesData} = issues;
+    // 기존 issues가 있으면 기존 issues 리스트를 보여주기 위함
     const isRefetchNeeded = !issuesData.length;
 
     const getIssues = async (page: number) => {
@@ -35,7 +36,7 @@ const IssuesContainer = () => {
             }
             setIssues((prev: Type.issuesState) => {
                 const newIssues = res.data;
-                // 서버 통신 전 코멘트 정렬이 변경되면 기존 배열 필터링하고 새로운 값 받기
+                // 서버 통신 전 코멘트 정렬이 변경될 경우 기존 배열 필터링하고 새로운 값 받기
                 const filteredIssues = prev.issues.filter(
                     preIssue =>
                         !newIssues.some(
@@ -66,7 +67,11 @@ const IssuesContainer = () => {
 
     const getNextPage = () => {
         const newPageCount = pageCount + 1;
-        setIssues((prev: Type.issuesState) => ({...prev, pageCount: newPageCount}));
+        setIssues((prev: Type.issuesState) => ({
+            ...prev,
+            isLoading: true,
+            pageCount: newPageCount,
+        }));
         getIssues(newPageCount);
     };
 
@@ -79,12 +84,10 @@ const IssuesContainer = () => {
     return (
         <StyledIssuesContainer>
             <div className='head'>Issues</div>
-            {isLoading ? <LoadingList /> : <IssueList issuesData={issuesData} />}
-            {moreData && (
-                <StyledIssueListLayout>
-                    <LoadingItem innerRef={getNextPageRef} />
-                </StyledIssueListLayout>
-            )}
+            {issuesData.length > 0 && <IssueList issuesData={issuesData} />}
+            {isLoading && isRefetchNeeded && <LoadingList />}
+            {isLoading && !isRefetchNeeded && <LoadingSpinner />}
+            {moreData && <LoadingSpinner innerRef={getNextPageRef} />}
         </StyledIssuesContainer>
     );
 };
