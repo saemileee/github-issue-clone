@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import {StyledIssuePostContainer} from './IssuePost';
 import LoadingItem from './LoadingItem';
 import colorPalette from '../../styles/colorPalette.styled';
+import {StyledLoadingAnimationBar} from '../../styles/common/Loading.styled';
 
 const LoadingPost = () => {
     return (
-        <LoadingPostContainer>
+        <StyledLoadingPostContainer>
+            <StyledLoadingAnimationBar blur={'80px'} />
             <div className='post-top-container'>
                 <span className='user-avater-container'></span>
                 <LoadingItem />
@@ -13,23 +15,26 @@ const LoadingPost = () => {
             <div className='post-body-container'>
                 <div className='empty-body'></div>
             </div>
-        </LoadingPostContainer>
+        </StyledLoadingPostContainer>
     );
 };
 
-const LoadingPostContainer = styled(StyledIssuePostContainer)`
+const StyledLoadingPostContainer = styled(StyledIssuePostContainer)`
     width: 100%;
+    overflow: hidden;
+    position: relative;
+
     .user-avater-container {
         height: 60px;
-        background-color: ${colorPalette.listItemBg};
+        background-color: ${colorPalette.textCode};
     }
+
     .post-body-container {
         .empty-body {
-            padding: 16px;
             width: 100%;
             height: 400px;
             box-sizing: border-box;
-            background-color: ${colorPalette.listItemBg};
+            background-color: ${colorPalette.textCode};
         }
     }
 `;

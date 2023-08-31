@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {StyledIssueItem} from './IssueItem';
 import colorPalette from '../../styles/colorPalette.styled';
+import {StyledLoadingAnimationBar} from '../../styles/common/Loading.styled';
 
 interface LoadingItemProps {
     innerRef?: any;
@@ -9,6 +10,7 @@ interface LoadingItemProps {
 const LoadingItem = ({innerRef}: LoadingItemProps) => {
     return (
         <StyledLoadingItem ref={innerRef}>
+            <StyledLoadingAnimationBar blur={'50px'} />
             <div className='left-container'>
                 <div className='top-container'></div>
                 <div className='bottom-container'></div>
@@ -20,6 +22,9 @@ const LoadingItem = ({innerRef}: LoadingItemProps) => {
 
 const StyledLoadingItem = styled(StyledIssueItem)`
     width: 100%;
+    overflow: hidden;
+    position: relative;
+
     div {
         border-radius: 6px;
     }
@@ -38,7 +43,7 @@ const StyledLoadingItem = styled(StyledIssueItem)`
 
         .bottom-container {
             height: 21px;
-            background-color: ${colorPalette.listItemBg};
+            background-color: ${colorPalette.textCode};
         }
     }
 
@@ -46,7 +51,7 @@ const StyledLoadingItem = styled(StyledIssueItem)`
         flex-shrink: 0;
         width: 70px;
         height: 16px;
-        background-color: ${colorPalette.listItemBg};
+        background-color: ${colorPalette.textCode};
     }
 `;
 
