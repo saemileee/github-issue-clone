@@ -4,7 +4,7 @@ import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import {issuesState} from '../../contexts/IssuesAtom';
 
 import IssueList from '../../componenets/Issues/IssueList';
@@ -17,11 +17,36 @@ import styled from 'styled-components';
 import colorPalette from '../../styles/colorPalette.styled';
 
 const IssuesContainer = () => {
-    const [errorStatus, setErrorStatus] = useState<number | string>(0);
-    const [issues, setIssues] = useRecoilState(issuesState);
-    const {isLoading, pageCount, moreData, issues: issuesData} = issues;
+    const issues = useRecoilValue(issuesState);
+    const {isLoading, moreData, issues: issuesData} = issues;
     // 기존 issues가 있으면 기존 issues 리스트를 보여주기 위함
     const isRefetchNeeded = !issuesData.length;
+    const {getIssues, getNextPage, errorStatus} = IssuesController();
+
+    useEffect(() => {
+        isRefetchNeeded && getIssues(1);
+    }, []);
+
+    const getNextPageRef: RefObject<HTMLElement | HTMLLIElement> = useInfiniteScroll(() => {
+        getNextPage();
+    });
+
+    if (errorStatus) return <NotFound errorStatus={errorStatus} />;
+
+    return (
+        <StyledIssuesContainer>
+            <div className='head'>Issues</div>
+            {issuesData.length > 0 && <IssueList issuesData={issuesData} />}
+            {isLoading && isRefetchNeeded && <LoadingList />}
+            {isLoading && !isRefetchNeeded && <LoadingSpinner />}
+            {moreData && <LoadingSpinner innerRef={getNextPageRef} />}
+        </StyledIssuesContainer>
+    );
+};
+
+const IssuesController = () => {
+    const [issues, setIssues] = useRecoilState(issuesState);
+    const [errorStatus, setErrorStatus] = useState<number | string>(0);
 
     const getIssues = async (page: number) => {
         try {
@@ -61,35 +86,17 @@ const IssuesContainer = () => {
         }
     };
 
-    useEffect(() => {
-        isRefetchNeeded && getIssues(1);
-    }, []);
-
     const getNextPage = () => {
-        const newPageCount = pageCount + 1;
+        const newPageCount = issues.pageCount + 1;
         setIssues((prev: Type.issuesState) => ({
             ...prev,
             isLoading: true,
-            pageCount: newPageCount,
+            pageCount: prev.pageCount + 1,
         }));
         getIssues(newPageCount);
     };
 
-    const getNextPageRef: RefObject<HTMLElement | HTMLLIElement> = useInfiniteScroll(() => {
-        getNextPage();
-    });
-
-    if (errorStatus) return <NotFound errorStatus={errorStatus} />;
-
-    return (
-        <StyledIssuesContainer>
-            <div className='head'>Issues</div>
-            {issuesData.length > 0 && <IssueList issuesData={issuesData} />}
-            {isLoading && isRefetchNeeded && <LoadingList />}
-            {isLoading && !isRefetchNeeded && <LoadingSpinner />}
-            {moreData && <LoadingSpinner innerRef={getNextPageRef} />}
-        </StyledIssuesContainer>
-    );
+    return {getIssues, getNextPage, errorStatus};
 };
 
 const StyledIssuesContainer = styled.div`
