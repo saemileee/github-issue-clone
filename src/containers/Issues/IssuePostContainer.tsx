@@ -13,11 +13,11 @@ const IssuePostContainer = () => {
     const params = useParams();
     const postId = parseInt(params.id!);
 
-    const {issueState, getIssueInfo} = IssuePostController(postId);
+    const {issueState, getIssueInfo} = IssuePostController();
     const {isLoading, issueInfo, errorStatus} = issueState;
 
     useEffect(() => {
-        getIssueInfo();
+        getIssueInfo(postId);
     }, []);
 
     if (errorStatus) return <NotFound errorStatus={errorStatus} />;
@@ -30,7 +30,7 @@ const IssuePostContainer = () => {
     );
 };
 
-const IssuePostController = (postId: number) => {
+const IssuePostController = () => {
     const [issueState, setIssueState] = useState<Type.issuePostState>({
         isLoading: true,
         errorStatus: 0,
@@ -47,7 +47,7 @@ const IssuePostController = (postId: number) => {
         },
     });
 
-    const getIssueInfo = async () => {
+    const getIssueInfo = async (postId: number) => {
         try {
             const res = await Fetcher.getIssue(postId);
             setIssueState((prev: Type.issuePostState) => ({...prev, issueInfo: res.data}));
