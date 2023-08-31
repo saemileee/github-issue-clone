@@ -1,8 +1,10 @@
-import styled from 'styled-components';
-import {OWNER, REPO} from '../constants/repoInfo';
-import colorPalette from '../styles/colorPalette.styled';
 import {useNavigate} from 'react-router-dom';
+
 import ROUTES from '../constants/routes';
+import {OWNER, REPO} from '../constants/repoInfo';
+
+import styled from 'styled-components';
+import colorPalette from '../styles/colorPalette.styled';
 
 const Header = () => {
     const navigate = useNavigate();

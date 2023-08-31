@@ -1,7 +1,8 @@
+import {StyledLoadingAnimationBar} from '../../styles/common/Loading.styled';
+
 import styled from 'styled-components';
 import {StyledIssueItem} from './IssueItem';
 import colorPalette from '../../styles/colorPalette.styled';
-import {StyledLoadingAnimationBar} from '../../styles/common/Loading.styled';
 
 interface LoadingItemProps {
     innerRef?: any;

@@ -1,8 +1,11 @@
-import * as Type from '../../types/issues';
-import IssueItem from '../../componenets/Issues/IssueItem';
 import {ReactMarkdown} from 'react-markdown/lib/react-markdown';
+import * as Type from '../../types/issues';
+
+import IssueItem from '../../componenets/Issues/IssueItem';
+
 import styled from 'styled-components';
 import colorPalette from '../../styles/colorPalette.styled';
+
 import remarkGfm from 'remark-gfm';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {materialDark} from 'react-syntax-highlighter/dist/cjs/styles/prism';

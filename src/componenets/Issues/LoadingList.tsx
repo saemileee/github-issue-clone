@@ -1,6 +1,7 @@
+import LoadingItem from './LoadingItem';
+
 import styled from 'styled-components';
 import {StyledIssueListContainer, StyledIssueListLayout} from './IssueList';
-import LoadingItem from './LoadingItem';
 
 const LOADING_COMP_COUNTS = 5;
 

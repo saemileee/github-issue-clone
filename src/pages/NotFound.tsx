@@ -1,8 +1,10 @@
-import styled from 'styled-components';
-import {DefaultContainer} from '../styles/DefaultContainer.styled';
-import colorPalette from '../styles/colorPalette.styled';
 import {useNavigate} from 'react-router-dom';
 import ROUTES from '../constants/routes';
+
+import {DefaultContainer} from '../styles/DefaultContainer.styled';
+
+import styled from 'styled-components';
+import colorPalette from '../styles/colorPalette.styled';
 
 const NotFound = ({errorStatus}: {errorStatus?: number | string}) => {
     const navigate = useNavigate();

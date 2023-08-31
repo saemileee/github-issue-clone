@@ -1,8 +1,9 @@
+import LoadingItem from './LoadingItem';
+import {StyledLoadingAnimationBar} from '../../styles/common/Loading.styled';
+
 import styled from 'styled-components';
 import {StyledIssuePostContainer} from './IssuePost';
-import LoadingItem from './LoadingItem';
 import colorPalette from '../../styles/colorPalette.styled';
-import {StyledLoadingAnimationBar} from '../../styles/common/Loading.styled';
 
 const LoadingPost = () => {
     return (

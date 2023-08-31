@@ -1,6 +1,8 @@
-import IssueItem from '../../componenets/Issues/IssueItem';
-import AdBanner from '../../componenets/Issues/AdBanner';
 import * as Type from '../../types/issues';
+
+import AdBanner from '../../componenets/Issues/AdBanner';
+import IssueItem from '../../componenets/Issues/IssueItem';
+
 import styled from 'styled-components';
 import colorPalette from '../../styles/colorPalette.styled';
 

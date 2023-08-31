@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import * as Type from '../../types/issues';
 import ROUTES from '../../constants/routes';
+
 import styled from 'styled-components';
 import colorPalette from '../../styles/colorPalette.styled';
 

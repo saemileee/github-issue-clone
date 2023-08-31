@@ -1,12 +1,13 @@
 import {useEffect, useState} from 'react';
+import {AxiosError} from 'axios';
+import {useParams} from 'react-router-dom';
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
+import {INVALID_ERROR_MSG} from '../../constants/messages';
+
 import IssuePost from '../../componenets/Issues/IssuePost';
-import {useParams} from 'react-router-dom';
 import LoadingPost from '../../componenets/Issues/LoadingPost';
 import NotFound from '../../pages/NotFound';
-import {AxiosError} from 'axios';
-import {INVALID_ERROR_MSG} from '../../constants/messages';
 
 const IssuePostContainer = () => {
     const params = useParams();

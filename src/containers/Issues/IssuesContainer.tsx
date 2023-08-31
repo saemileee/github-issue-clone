@@ -1,20 +1,20 @@
 import {RefObject, useEffect, useState} from 'react';
-
+import {AxiosError} from 'axios';
 import * as Fetcher from '../../apis/Issues';
 import * as Type from '../../types/issues';
-
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+
 import {useRecoilState} from 'recoil';
 import {issuesState} from '../../contexts/IssuesAtom';
-import styled from 'styled-components';
+
 import IssueList from '../../componenets/Issues/IssueList';
 import LoadingList from '../../componenets/Issues/LoadingList';
-
-import colorPalette from '../../styles/colorPalette.styled';
 import NotFound from '../../pages/NotFound';
-import {AxiosError} from 'axios';
 import {INVALID_ERROR_MSG} from '../../constants/messages';
 import LoadingSpinner from '../../componenets/common/LoadingSpinner';
+
+import styled from 'styled-components';
+import colorPalette from '../../styles/colorPalette.styled';
 
 const IssuesContainer = () => {
     const [errorStatus, setErrorStatus] = useState<number | string>(0);

@@ -3,8 +3,8 @@ import App from './App';
 import ROUTES from './constants/routes';
 import Issues from './pages/Issues/Issues';
 import IssuePost from './pages/Issues/IssuePost';
-import NotFound from './pages/NotFound';
 import Header from './componenets/Header';
+import NotFound from './pages/NotFound';
 
 export const Router = createBrowserRouter([
     {
