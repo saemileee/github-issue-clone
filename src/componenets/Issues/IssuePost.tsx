@@ -42,11 +42,13 @@ export const StyledIssuePostContainer = styled.div`
         gap: 16px;
         border-bottom: 1px solid ${colorPalette.listBorder};
         .user-avater-container {
+            align-self: center;
             width: 60px;
-            border-radius: 8px;
+            height: 60px;
+            border-radius: 50%;
             overflow: hidden;
             img {
-                width: 100%;
+                height: 100%;
             }
         }
     }
