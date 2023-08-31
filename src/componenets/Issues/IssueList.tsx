@@ -15,20 +15,20 @@ const IssueList = ({issuesData}: issueListProps) => {
                 issuesData.map((issue: Type.issueItem, idx: number) => {
                     if ((idx + 1) % IDX_OF_AD_BANNER === 0) {
                         return (
-                            <>
+                            <div key={`issue-${issue.id}`}>
                                 <StyledIssueList>
-                                    <IssueItem key={`issue-${issue.id}`} issue={issue} />
+                                    <IssueItem issue={issue} />
                                 </StyledIssueList>
                                 <AdBanner key={`ad-banner-${idx}`} />
-                            </>
+                            </div>
                         );
                     }
                     return (
-                        <>
+                        <div key={`issue-${issue.id}`}>
                             <StyledIssueList>
-                                <IssueItem key={`issue-${issue.id}`} issue={issue} />
+                                <IssueItem issue={issue} />
                             </StyledIssueList>
-                        </>
+                        </div>
                     );
                 })}
         </StyledIssueListContainer>
