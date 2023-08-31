@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import * as Type from '../../types/issues';
 import ROUTES from '../../constants/routes';
 
@@ -13,15 +13,19 @@ const IssueItem = ({issue}: IssueItemProps) => {
     const navigate = useNavigate();
     const {number, title, user, created_at, comments} = issue;
 
+    const params = useParams();
+    const postId = params.id;
+
     const localizedCreatedAt = new Date(created_at).toLocaleDateString();
 
     const navigateToPostPage = () => {
         navigate(`${ROUTES.ISSUES}/${number}`);
     };
+
     return (
         <StyledIssueItem>
             <div className='left-container'>
-                <div className='top-container' onClick={navigateToPostPage}>
+                <div className='top-container' onClick={() => !postId && navigateToPostPage()}>
                     <span className='number'>#{number}</span>
                     <span className='title'>{title}</span>
                 </div>
