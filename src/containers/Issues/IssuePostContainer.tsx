@@ -51,6 +51,13 @@ const IssuePostController = () => {
         try {
             const res = await Fetcher.getIssue(postId);
             setIssueState((prev: Type.issuePostState) => ({...prev, issueInfo: res.data}));
+            if (res.data.state !== 'open') {
+                const error = new AxiosError();
+                setIssueState((prev: Type.issuePostState) => ({
+                    ...prev,
+                    errorStatus: error.response?.status ?? INVALID_ERROR_MSG,
+                }));
+            }
         } catch (e) {
             const error = e as AxiosError;
             setIssueState((prev: Type.issuePostState) => ({
