@@ -1,7 +1,13 @@
+import {PER_PAGE} from '../constants/api';
 import axiosIssuesInstance from './instances';
 const ISSUES_PATH = '/issues';
 
-export const getIssues = async (page: number, perPage = 24, state = 'open', sort = 'comments') => {
+export const getIssues = async (
+    page: number,
+    perPage = PER_PAGE,
+    state = 'open',
+    sort = 'comments'
+) => {
     const response = await axiosIssuesInstance.get(
         `${ISSUES_PATH}?page=${page}&per_page=${perPage}&state=${state}&sort=${sort}`
     );

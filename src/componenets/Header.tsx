@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 
 import ROUTES from '../constants/routes';
-import {OWNER, REPO} from '../constants/repoInfo';
+import {OWNER, REPO} from '../constants/api';
 
 import styled from 'styled-components';
 import colorPalette from '../styles/colorPalette.styled';
