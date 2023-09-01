@@ -1,24 +1,21 @@
-import {useEffect, useState} from 'react';
-import {AxiosError} from 'axios';
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import * as Fetcher from '../../apis/Issues';
-import * as Type from '../../types/issues';
-import {INVALID_ERROR_MSG} from '../../constants/messages';
 
 import IssuePost from '../../componenets/Issues/IssuePost';
 import LoadingPost from '../../componenets/Issues/LoadingPost';
 import NotFound from '../../pages/NotFound';
+import useIssuePost from '../../controllers/useIssuePost';
 
 const IssuePostContainer = () => {
     const params = useParams();
-    const postId = parseInt(params.id!);
+    const postId = Number(params.id);
 
-    const {issueState, getIssueInfo} = IssuePostController();
-    const {isLoading, issueInfo, errorStatus} = issueState;
+    const {issuePost, getIssue} = useIssuePost();
+    const {isLoading, issueInfo, errorStatus} = issuePost;
 
     useEffect(() => {
-        getIssueInfo(postId);
-    }, []);
+        getIssue(postId);
+    }, [getIssue, postId]);
 
     if (errorStatus) return <NotFound errorStatus={errorStatus} />;
 
@@ -28,40 +25,6 @@ const IssuePostContainer = () => {
             {!isLoading && !errorStatus && <IssuePost issueInfo={issueInfo} />}
         </>
     );
-};
-
-const IssuePostController = () => {
-    const [issueState, setIssueState] = useState<Type.issuePostState>({
-        isLoading: true,
-        errorStatus: 0,
-        issueInfo: {
-            number: 0,
-            title: '',
-            user: {
-                login: '',
-                avatar_url: '',
-            },
-            created_at: '',
-            comments: 0,
-            body: '',
-        },
-    });
-
-    const getIssueInfo = async (postId: number) => {
-        try {
-            const res = await Fetcher.getIssue(postId);
-            setIssueState((prev: Type.issuePostState) => ({...prev, issueInfo: res.data}));
-        } catch (e) {
-            const error = e as AxiosError;
-            setIssueState((prev: Type.issuePostState) => ({
-                ...prev,
-                errorStatus: error.response?.status ?? INVALID_ERROR_MSG,
-            }));
-        } finally {
-            setIssueState((prev: Type.issuePostState) => ({...prev, isLoading: false}));
-        }
-    };
-    return {issueState, getIssueInfo};
 };
 
 export default IssuePostContainer;
