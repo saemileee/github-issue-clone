@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {OWNER, REPO} from '../constants/repoInfo';
+import {OWNER, REPO} from '../constants/api';
 
 export const axiosIssuesInstance = axios.create({
     baseURL: `https://api.github.com/repos/${OWNER}/${REPO}`,
@@ -10,11 +10,6 @@ export const axiosIssuesInstance = axios.create({
 });
 
 axiosIssuesInstance.interceptors.request.use(
-    config => config,
-    err => Promise.reject(err)
-);
-
-axiosIssuesInstance.interceptors.response.use(
     config => config,
     err => Promise.reject(err)
 );
