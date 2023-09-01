@@ -32,10 +32,8 @@
 2023.08.29-2023.08.31
 
 ## 시작 가이드
+* [배포 주소](http://34.64.119.55/)
 
--   배포 주소
-
-    🔗 http://wanted-pre-onboarding-12th-2-11.s3-website.ap-northeast-2.amazonaws.com/issues
 
 -   프로젝트 실행 방법
     ```
@@ -44,9 +42,10 @@
     3. $ npm start
     ```
 
-## 구현 결과
-
-![구현 이미지](https://github.com/saemileee/wanted-pre-onboarding-12th-2nd/assets/68241138/98f8cca2-437c-47a2-9cdb-f48840c9561b)
+## 구현 화면
+|      구현 화면      |  
+| :---------------------------------: |
+| ![구현 이미지](https://github.com/saemileee/wanted-pre-onboarding-12th-2nd/assets/68241138/98f8cca2-437c-47a2-9cdb-f48840c9561b) |
 
 ## 과제 디테일을 위한 고민
 
@@ -150,6 +149,11 @@
 -   `open` 상태인 이슈 목록만 리스팅하는 과제 요구사항에 따라 url을 통해 `open`상태가 아닌
     상세페이지에는 접근이 안되어야 된다고 판단하였고, 이 경우 새로운 error를 생성하여 errorStatus를
     변경하고 `NotFound` 페이지로 이동하게 하였습니다. 사진 넣기
+
+| Error(ErrorStatus에 따라 에러 코드 변경) |       Error(open 상태가 아닌 이슈)        |
+| :---------------------------------: | :-----------------------------------: |
+| <img width="400" alt="error-page" src="https://github.com/saemileee/wanted-pre-onboarding-12th-2nd/assets/68241138/b26fa272-8e81-40af-ad6e-206349eadde4"/> | <img width="400" alt="open-error-page" src="https://github.com/saemileee/wanted-pre-onboarding-12th-2nd/assets/68241138/d1715867-aedf-4b73-af2b-3d5386073f00"/> |
+
 
 ### 로딩 화면
 
