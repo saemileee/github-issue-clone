@@ -22,6 +22,7 @@ export interface issuePost {
 }
 
 export interface issuesState {
+    isRefetchNeeded: boolean;
     isLoading: boolean;
     errorStatus: number | string;
     pageCount: number;
