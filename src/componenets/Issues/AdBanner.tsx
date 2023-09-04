@@ -6,7 +6,12 @@ const AdBanner = () => {
         <StyledAdBannerContainer>
             <a href='https://www.wanted.co.kr/' target='_blank' rel='noreferrer'>
                 <span className='ad-tag'>ad.</span>
-                <img alt='ad_banner' src='/asset/images/ad_image.jpg' />
+                <img
+                    alt='ad_banner'
+                    src='/asset/images/ad_image.svg'
+                    width='768px'
+                    height='120px'
+                />
             </a>
         </StyledAdBannerContainer>
     );
@@ -18,8 +23,10 @@ const StyledAdBannerContainer = styled.div`
     a {
         display: flex;
         width: 100%;
-        height: 100%;
+        height: 100px;
         position: relative;
+        justify-content: center;
+
         .ad-tag {
             padding: 4px;
             position: absolute;
@@ -31,6 +38,7 @@ const StyledAdBannerContainer = styled.div`
         }
         img {
             width: 100%;
+            height: auto;
         }
     }
 `;
